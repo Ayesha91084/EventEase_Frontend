@@ -2,8 +2,9 @@ EventEase: Event Management System Using MERN Stack
 
 Project Overview
 
-EventEase is a comprehensive multi-vendor event management platform designed to connect customers with event service providers (Vendors) . From venues and catering to photography and decor, the platform allows users to browse, compare, and book services with ease.
+EventEase is a comprehensive multi-vendor event management platform designed to connect customers with event service providers (Vendors). From venues and catering to photography and decor, the platform allows users to browse, compare, and book services with ease.
 The system features a secure payment gateway for advance bookings, real-time communication between parties, and a robust administrative command center.
+
 The project is built using the MERN Stack:
 ● Frontend: React.js
 ● Backend API: Node.js + Express.js
