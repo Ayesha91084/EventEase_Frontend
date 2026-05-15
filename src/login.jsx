@@ -1,9 +1,29 @@
 import  { useState } from 'react';
 import './login.css';
+import { useNavigate } from 'react-router-dom';
 import googleIcon from './google-icon.png'; 
+import API from './api/axiosConfig';
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+   const [email, setEmail] = useState('');      
+  const [password, setPassword] = useState(''); 
+  const [error, setError] = useState(''); 
+
+  const navigate = useNavigate(); 
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await API.post('/login', { email, password });
+      localStorage.setItem('token', response.data.token);
+      alert('Login successful!');
+      navigate('/dashboard'); // apne route pe change karo
+    } catch (err) {
+      setError(err.response?.data?.msg || 'Login failed');
+    }
+  };
 
   return (
     <div className="login-container">
@@ -16,12 +36,14 @@ const LoginForm = () => {
           <h1>EventEase</h1>
           <p className="subtitle">Plan your perfect moment</p>
         </div>
+        {error && <p style={{color: 'red'}}>{error}</p>}
 
         {/* Form Section */}
-        <form className="login-form">
+        <form className="login-form" onSubmit={handleSubmit}>
           <div className="input-group">
             <label>Email Address</label>
-            <input type="email" placeholder="Enter your email" />
+            <input type="email" placeholder="Enter your email"value={email}
+              onChange={(e) => setEmail(e.target.value)} />
           </div>
 
           <div className="input-group">
@@ -29,7 +51,9 @@ const LoginForm = () => {
             <div className="password-wrapper">
               <input 
                 type={showPassword ? "text" : "password"} 
-                placeholder="Enter your password" 
+                placeholder="Enter your password"value={password}
+                onChange={(e) => setPassword(e.target.value)}
+ 
               />
               <button 
                 type="button" 
@@ -48,12 +72,10 @@ const LoginForm = () => {
           <button type="submit" className="login-btn">Login</button>
         </form>
 
-        {/* Divider */}
         <div className="divider">
           <span>OR CONTINUE WITH</span>
         </div>
 
-        {/* Social Login */}
         <button className="google-btn">
                   <img src={googleIcon} alt="Google" />
                   Sign up with Google

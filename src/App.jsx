@@ -1,5 +1,4 @@
-/*import React from 'react';
-import Login from './pages/Login';
+/*import Login from './Login';
 
 function App() {
   return (
@@ -9,8 +8,27 @@ function App() {
   );
 }
 
+export default App;*/
+import { BrowserRouter, Routes, Route } from 'react-router-dom'; 
+import Signup from './Signup';
+import LoginForm from './login'; 
+
+function App() {
+  return (
+    <BrowserRouter>     
+      <Routes>            
+        
+        <Route path="/signup" element={<Signup />} />  
+        <Route path="/login" element={<LoginForm />} />  
+        <Route path="/" element={<Signup />} />          
+
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
 export default App;
-import React from "react";
+/*import React from "react";
 import Signup from "./Pages/signup";
 
 function App() {
@@ -38,7 +56,7 @@ function App() {
 export default App;*/
 
 
-import Home from "./Home";
+/*import Home from "./Home";
 
 function App() {
   return (
@@ -59,5 +77,15 @@ function App() {
   </div>
   );
   
+}
+export default App;
+import Decorators from "./Decorators"
+
+function App() {
+  return(
+    <div className="App">
+      <Decorators/>
+    </div>
+  );
 }
 export default App;*/

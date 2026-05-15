@@ -1,16 +1,83 @@
-# React + Vite
+EventEase: Event Management System Using MERN Stack
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Project Overview
 
-Currently, two official plugins are available:
+EventEase is a comprehensive multi-vendor event management platform designed to connect customers with event service providers (Vendors) . From venues and catering to photography and decor, the platform allows users to browse, compare, and book services with ease.
+The system features a secure payment gateway for advance bookings, real-time communication between parties, and a robust administrative command center.
+The project is built using the MERN Stack:
+● Frontend: React.js
+● Backend API: Node.js + Express.js
+● Database: MongoDB (Atlas)
+● Real-time Communication: Socket.io
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Project Structure
 
-## React Compiler
+EventEase/
+│
+├── frontend/ # React.js User Interface
+├── backend/ # Express.js & Node.js API
+├── models/ # MongoDB Schemas (User, Vendor, Booking, Chat)
+└── README.md
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Prerequisites
 
-## Expanding the ESLint configuration
+Ensure the following are installed on your system:
+● Node.js (v16 or above)
+● npm
+● MongoDB Atlas Account
+● Cloudinary Account (for media storage)
+● Stripe Account (for payment processing)
+Environment Setup
+Create a .env file inside the backend folder and add:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Code snippet
+
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+STRIPE_SECRET_KEY=your_stripe_key
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+
+How to Run the Project
+Step 1: Run Backend
+
+Bash
+
+cd backend
+npm install
+npm run dev
+
+The server will run on: http://localhost:5000
+Step 2: Run Frontend
+
+Bash
+
+cd frontend
+npm install
+npm start
+
+The application will be accessible at: http://localhost:3000
+Key Features
+
+● Multi-Role Access (RBAC): Separate dashboards for Admin, Vendors, and Customers.
+● Vendor Verification: Admin-controlled approval system for service providers.
+● Advanced Search & Filter: Find vendors by category, city, or budget .
+● Real-time Chat: Instant messaging between customers and vendors via Socket.io.
+● Media Portfolios: High-quality image and video hosting using Cloudinary.
+● Booking Management: Real-time availability tracking and status updates (Pending/Confirmed).
+● Secure Payments: 30% advance payment processing integrated with Stripe.
+● Review & Rating: Post-event feedback system for quality assurance.
+Security & Reliability
+● Password Encryption: Using Bcrypt.js for secure data storage.
+● Authentication: JSON Web Tokens (JWT) for session management.
+● Data Validation: Mongoose schemas to ensure data integrity.
+● CORS Enabled: Secure cross-origin resource sharing between frontend and backend.
+
+Developers
+
+● Ayesha Bibi (085656)
+● Asma Noreen (085710)
+● Mahroosh (085649)
+Supervised by: Prof. Muhammad Faiyaz
