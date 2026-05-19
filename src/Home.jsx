@@ -1,5 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
-import "./Home.css"; // CSS import karein
+import { Link } from 'react-router-dom';
+import "./Home.css";
+
 
 const countries = ["Pakistan", "United Kingdom", "United States", "UAE", "Saudi Arabia", "India", "Canada", "Australia"];
 const citiesByCountry = {
@@ -56,6 +59,7 @@ const serviceImages = [
 ];
 
 export default function Home() {
+  const navigate = useNavigate();
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
 
@@ -67,14 +71,14 @@ export default function Home() {
       <nav className="ee-nav">
         <div className="ee-logo">Event<span>Ease</span></div>
         <div className="ee-nav-links">
-          <a href="#" className="active">Home</a>
-          <a href="#">Services</a>
+          <Link to="/">Home</Link>
+          <Link to="/services">Services</Link>
           <a href="#">Vendors</a>
           <a href="#">About Us</a>
         </div>
         <div className="ee-nav-actions">
-          <button className="ee-btn-ghost">Login</button>
-          <button className="ee-btn-primary">Sign Up</button>
+          <button className="ee-btn-ghost" onClick={() => navigate('/login')}>Login</button>
+          <button className="ee-btn-primary" onClick={() => navigate('/signup')}>Sign Up</button>
         </div>
       </nav>
 
@@ -145,7 +149,7 @@ export default function Home() {
             <h2>Find the Perfect Vendor</h2>
             <p>Handpicked professionals dedicated to bringing your unique vision to life with precision and grace.</p>
           </div>
-          <a href="#" className="ee-view-all">View All Vendors →</a>
+          <a onClick={() => navigate('/vendors')} className="ee-view-all" style={{cursor:'pointer'}}>View All Vendors →</a>
         </div>
         <div className="ee-vendors-grid">
           {vendors.map(v => (

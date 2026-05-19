@@ -1,4 +1,5 @@
 import  { useState } from "react";
+import { Link, useNavigate } from 'react-router-dom';
 import "./Vendors.css";
 
 // ===== SVG ICONS =====
@@ -56,6 +57,7 @@ const categories = [
 
 // ===== COMPONENT =====
 export default function Vendors() {
+  const navigate = useNavigate();
   const [activeSlide, setActiveSlide] = useState(0);
   const [search, setSearch] = useState("");
 
@@ -79,11 +81,11 @@ export default function Vendors() {
         </div>
 
         <ul className="nav-links">
-          <li><a href="#">Home</a></li>
-          <li><a href="#" className="active">Services</a></li>
-          <li><a href="#">Vendors</a></li>
-          <li><a href="#">About Us</a></li>
-        </ul>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/services" className="active">Services</Link></li>
+        <li><Link to="/vendors">Vendors</Link></li>
+        <li><a href="#">About Us</a></li>
+       </ul>
 
         <div className="nav-auth">
           <button className="btn-signup">Sign Up</button>
