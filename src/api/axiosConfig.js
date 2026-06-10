@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:5000',  // tumhara backend port
+  baseURL: 'https://eventease-backend-693s.onrender.com/api/auth',
 });
 
 // Har request mein automatically token attach ho

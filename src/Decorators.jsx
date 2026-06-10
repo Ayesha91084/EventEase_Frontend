@@ -82,9 +82,6 @@ export default function VendorPage() {
           <button className="nav-icon-btn" aria-label="Notifications">
             🔔
           </button>
-          <button className="nav-icon-btn" aria-label="Profile">
-            👤
-          </button>
           <button className="btn-login">Login</button>
         </div>
       </nav>
