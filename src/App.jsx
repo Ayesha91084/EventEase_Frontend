@@ -26,7 +26,6 @@ function App() {
 
         <Route path="/decorators" element={
           <ProtectedRoute>
-            <Decorators />
           </ProtectedRoute>
         } />
 
@@ -63,4 +62,4 @@ function App(){
     </div>
   )
 }
-export default App;/*
+export default App;*/
