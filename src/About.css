@@ -1,0 +1,163 @@
+/* --- Global Styles for Component --- */
+.ee-about-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333333;
+  background-color: #fcfcfd;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* --- Hero Section --- */
+.ee-hero-section {
+  position: relative;
+  height: 450px;
+  background-image: url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=1200'); /* Banquet background image */
+  background-size: cover;
+  background-position: center;
+  margin: 30px 8%;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.ee-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55); /* Dim layout for typography contrast */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+  padding: 20px;
+}
+.ee-hero-overlay h1 {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.ee-hero-overlay p {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+/* --- Layout Sections --- */
+.ee-content-section {
+  padding: 50px 8%;
+}
+.ee-section-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 30px;
+}
+
+/* --- Mission & Vision --- */
+.ee-mission-vision-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+.ee-mv-card {
+  background: #ffffff;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+.ee-card-icon-wrapper {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+.ee-mv-card h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: #1a1a1a;
+}
+.ee-mv-card p {
+  color: #666666;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* --- Timeline Structure (Our Story) --- */
+.ee-timeline {
+  position: relative;
+  border-left: 2px solid #e9d5ff; /* Purple timeline bar color */
+  padding-left: 25px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+.ee-timeline-item {
+  position: relative;
+}
+.ee-timeline-dot {
+  position: absolute;
+  left: -32px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #d97706; /* Ochre accent color */
+  border: 2px solid #ffffff;
+}
+.ee-timeline-content h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111111;
+  margin: 0 0 8px 0;
+}
+.ee-timeline-content p {
+  color: #555555;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* --- Services Grid --- */
+.ee-services-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+.ee-service-card {
+  background: #ffffff;
+  border: 1px solid #f1f1f4;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.01);
+}
+.ee-service-icon {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+.ee-service-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+}
+.ee-service-card p {
+  color: #666666;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+  .ee-hero-section {
+    margin: 15px 4%;
+    height: 300px;
+  }
+  .ee-hero-overlay h1 {
+    font-size: 30px;
+  }
+  .ee-content-section {
+    padding: 35px 4%;
+  }
+  .ee-mission-vision-grid, .ee-services-grid {
+    grid-template-columns: 1fr;
+  }
+}

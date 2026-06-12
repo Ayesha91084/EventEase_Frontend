@@ -1,65 +1,34 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+import { HashRouter, Routes, Route } from 'react-router-dom';
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Home from './Home';
+import Vendors from './Vendors';
+import Venuepage from './Venuepage';
+import Decorators from './Decorators';
+import Photographer from './Photographer';
 import Login from './login';
 import Signup from './Signup';
-import AdminDashboard from './Admindashboard';
-import Vendors from './Vendors';
-
-import ProtectedRoute from './ProtectedRoute';
+import About from './About';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
+    <HashRouter>
+      <Navbar />
 
+      <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/services" element={<Vendors />} />
+        <Route path="/vendors" element={<Venuepage />} />
+        <Route path="/decorators" element={<Decorators />} />
+        <Route path="/photographer" element={<Photographer />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/services" element={<Vendors />} />
-
-        <Route path="/admin-dashboard" element={
-          <ProtectedRoute>
-            <AdminDashboard />
-          </ProtectedRoute>
-        } />
-
-        <Route path="/decorators" element={
-          <ProtectedRoute>
-          </ProtectedRoute>
-        } />
-
-        <Route path="/vendors" element={
-          <ProtectedRoute>
-            <Vendors />
-          </ProtectedRoute>
-        } />
-
+        <Route path="/about" element={<About />} />
       </Routes>
-    </BrowserRouter>
+
+      <Footer />
+    </HashRouter>
   );
 }
 
 export default App;
-
-
-/*import Decorators from "./Decorators";
-function App() {
-  return(
-   <div className="App">
-    <Decorators/>
-   </div>
-  );
-
-  
-}
-export default App;
-import Photographer from './Photographer';
-function App(){
-  return(
-    <div className="App">
-      <Photographer/>
-    </div>
-  )
-}
-export default App;*/

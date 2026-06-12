@@ -66,33 +66,7 @@ export default function Vendors() {
   return (
     <div className="vendors-page">
 
-      {/* NAVBAR */}
-      <nav className="navbar">
-        <div className="navbar-brand">
-          <div className="brand-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
-              <rect x="3" y="4" width="18" height="18" rx="2"/>
-              <line x1="16" y1="2" x2="16" y2="6"/>
-              <line x1="8" y1="2" x2="8" y2="6"/>
-              <line x1="3" y1="10" x2="21" y2="10"/>
-            </svg>
-          </div>
-          <span className="brand-name">EventEase</span>
-        </div>
-
-        <ul className="nav-links">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/services" className="active">Services</Link></li>
-        <li><Link to="/vendors">Vendors</Link></li>
-        <li><a href="#">About Us</a></li>
-       </ul>
-
-        <div className="nav-auth">
-          <button className="btn-signup">Sign Up</button>
-          <button className="btn-login">Login</button>
-        </div>
-      </nav>
-
+        
       {/* HERO */}
       <section className="hero-section">
         <div className="hero-text">
@@ -148,20 +122,6 @@ export default function Vendors() {
           ))}
         </div>
       </section>
-
-      {/* FOOTER */}
-      <footer className="footer">
-        <div className="footer-links">
-          <a href="#">Contact Us</a>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-        </div>
-        <div className="footer-social">
-          <a href="#">𝕏</a>
-          <a href="#">f</a>
-        </div>
-      </footer>
-
     </div>
   );
 }
