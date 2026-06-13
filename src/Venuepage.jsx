@@ -1,111 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Venuepage.css";
+import { dummyVenues } from "./Components/VendorsData";
 
-const dummyVenues = [
-  {
-    id: 1,
-    name: "Royal Marquee Gardens",
-    country: "Pakistan",
-    city: "Lahore",
-    location: "DHA Phase 5, Lahore",
-    rating: 4.8,
-    reviews: 120,
-    price: 3500,
-    capacity: 500,
-    type: "Marquee",
-    eventTypes: ["Wedding", "Corporate"],
-    description:
-      "A stunning marquee venue with lush green gardens, perfect for grand weddings and elegant evening events.",
-    image: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400&h=280&fit=crop",
-    topPick: true,
-  },
-  {
-    id: 2,
-    name: "Pearl Continental Banquet",
-    country: "Pakistan",
-    city: "Lahore",
-    location: "Shahrah-e-Quaid-e-Azam, Lahore",
-    rating: 4.9,
-    reviews: 85,
-    price: 6000,
-    capacity: 800,
-    type: "Hotel",
-    eventTypes: ["Wedding", "Corporate", "Birthday"],
-    description:
-      "Luxurious hotel banquet halls with world-class catering and professional event management services.",
-    image: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400&h=280&fit=crop",
-    topPick: true,
-  },
-  {
-    id: 3,
-    name: "Serena Ballroom",
-    country: "Pakistan",
-    city: "Islamabad",
-    location: "Islamabad Club Road, Islamabad",
-    rating: 4.7,
-    reviews: 60,
-    price: 5500,
-    capacity: 600,
-    type: "Hotel",
-    eventTypes: ["Wedding", "Corporate"],
-    description:
-      "Elegant ballroom in the heart of Islamabad, featuring classic décor and premium hospitality.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=280&fit=crop",
-    topPick: false,
-  },
-  {
-    id: 4,
-    name: "Green Valley Farm House",
-    country: "Pakistan",
-    city: "Lahore",
-    location: "Bedian Road, Lahore",
-    rating: 4.5,
-    reviews: 45,
-    price: 2200,
-    capacity: 300,
-    type: "Farmhouse",
-    eventTypes: ["Wedding", "Birthday", "Family"],
-    description:
-      "Spacious farmhouse with open-air setting, ideal for rustic and outdoor celebrations.",
-    image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400&h=280&fit=crop",
-    topPick: false,
-  },
-  {
-    id: 5,
-    name: "Faletti's Grand Hall",
-    country: "Pakistan",
-    city: "Lahore",
-    location: "Egerton Road, Lahore",
-    rating: 4.6,
-    reviews: 72,
-    price: 4000,
-    capacity: 450,
-    type: "Hall",
-    eventTypes: ["Wedding", "Corporate", "Birthday"],
-    description:
-      "A heritage venue with colonial charm, offering timeless elegance for all types of events.",
-    image: "https://images.unsplash.com/photo-1478146059778-26028b07395a?w=400&h=280&fit=crop",
-    topPick: false,
-  },
-  {
-    id: 6,
-    name: "Islamabad Convention Centre",
-    country: "Pakistan",
-    city: "Islamabad",
-    location: "Jinnah Avenue, Islamabad",
-    rating: 4.9,
-    reviews: 200,
-    price: 8000,
-    capacity: 2000,
-    type: "Convention Centre",
-    eventTypes: ["Corporate", "Wedding", "Exhibition"],
-    description:
-      "Pakistan's premier convention facility with state-of-the-art infrastructure for large-scale events.",
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=280&fit=crop",
-    topPick: true,
-  },
-];
-
+const VendorsType = ["Photographers", "Caterers", "Decorators"];
 const venueTypes = ["All", "Marquee", "Hotel", "Farmhouse", "Hall", "Convention Centre"];
 const eventTypes = ["Wedding", "Corporate", "Birthday", "Family"];
 
@@ -155,6 +53,7 @@ export default function Venuepage() {
       if (sortBy === "rating") return b.rating - a.rating;
       return 0;
     });
+     const navigate = useNavigate();
 
   return (
     <div className="vlp-page">
@@ -169,6 +68,7 @@ export default function Venuepage() {
       <div className="vlp-body">
         {/* Sidebar Filters */}
         <aside className={`vlp-sidebar ${filtersOpen ? "open" : "close"}`}>
+
           <div className="vlp-filter-header">
             <h3>Filters</h3>
             <button className="vlp-filter-toggle" onClick={() => setFiltersOpen(!filtersOpen)}>
@@ -177,6 +77,19 @@ export default function Venuepage() {
           </div>
 
           {/* Venue Type */}
+          <div className="vlp-filter-section">
+          <h4>Select Services</h4>
+          {VendorsType.map((type) => (
+          <label key={type} className="vlp-checkbox">
+          <input
+            type="checkbox"
+             checked={selectedEvents.includes(type)}
+              onChange={() => toggleEventType(type)}
+              />
+              <span>{type}</span>
+              </label>
+               ))}
+             </div>
           <div className="vlp-filter-section">
             <h4>Venue Type</h4>
             {venueTypes.map((type) => (
@@ -213,6 +126,7 @@ export default function Venuepage() {
                 <option key={country} value={country}>{country}</option>
               ))}
             </select>
+            
 
             <h4>Select City</h4>
             <select 
@@ -251,6 +165,7 @@ export default function Venuepage() {
               </label>
             ))}
           </div>
+          
 
           {/* Price Range */}
           <div className="vlp-filter-section">
@@ -358,7 +273,7 @@ export default function Venuepage() {
                         <span className="vlp-price-label">Starting from</span>
                         <span className="vlp-price-value">PKR {venue.price.toLocaleString()}/head</span>
                       </div>
-                      <button className="vlp-details-btn">View Details</button>
+                      <button className="vlp-details-btn" onClick={() => navigate(`/vendors/${venue.id}`)} > View Profile </button>
                     </div>
                   </div>
                 </div>

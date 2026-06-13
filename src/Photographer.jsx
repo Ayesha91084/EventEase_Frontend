@@ -1,14 +1,9 @@
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { dummyVenues } from "./Components/VendorsData";
+import VendorCalendar from "./Components/VendorCalendar";
 import "./Photographer.css";
 
-// ─── DATA ──────────────────────────────────────────────────────────────────────
-const vendor = {
-  name: "Moments Captured",
-  rating: 5.0,
-  phone: "092 3XXX 4527",
-  email: "info@momentscaptured.com",
-  location: "Mandi Bahauddin, Pakistan",
-  avatarLabel: "Moments Capt...",
-};
 
 const portfolioItems = [
   {
@@ -60,40 +55,12 @@ const services = [
     icon: "auto_fix_high",
     name: "Event Showcase",
     desc: "Complete coverage of corporate events, launches, and gala nights with rapid 24-hour turnaround for socials.",
-    price: "From Rs. 800",
+    price: "From Rs. 8000",
   },
 ];
 
-// ─── NAVBAR ────────────────────────────────────────────────────────────────────
-function Navbar() {
-  return (
-    <header className="navbar">
-      <div className="navbar__inner">
-        <span className="navbar__logo">EventEase</span>
-
-        <nav className="navbar__links">
-          <a href="#" className="navbar__link">Home</a>
-          <a href="#" className="navbar__link">Services</a>
-          <a href="#" className="navbar__link navbar__link--active">Vendors</a>
-          <a href="#" className="navbar__link">About Us</a>
-        </nav>
-
-        <div className="navbar__actions">
-          <button className="navbar__icon-btn" aria-label="Notifications">
-            <span className="material-symbols-outlined" style={{ fontSize: 22 }}>notifications</span>
-          </button>
-          <button className="navbar__icon-btn" aria-label="Account">
-            <span className="material-symbols-outlined" style={{ fontSize: 22 }}>account_circle</span>
-          </button>
-          <button className="btn-login">Login</button>
-        </div>
-      </div>
-    </header>
-  );
-}
-
 // ─── VENDOR HEADER ─────────────────────────────────────────────────────────────
-function VendorHeader({ vendor }) {
+function VendorHeader({ vendor, navigate }) {
   return (
     <div className="vendor-header">
       {/* Avatar */}
@@ -154,7 +121,7 @@ function VendorHeader({ vendor }) {
         </div>
 
         <div className="vendor-header__cta">
-          <button className="btn-chat">Chat with Vendor</button>
+          <button className="btn-chat" onClick={() => navigate(`/chat/${vendor.id}`)}> Chat with Vendor </button>
           <button className="btn-book">Book Now</button>
           <button className="btn-deposit">Pay Deposit</button>
         </div>
@@ -192,10 +159,9 @@ function PortfolioSection({ items }) {
 
             {item.hasPlay && (
               <div className="portfolio-item__play">
-                <div className="play-btn">
+                
                   <span className="material-symbols-outlined">play_arrow</span>
                 </div>
-              </div>
             )}
 
             {item.caption && (
@@ -228,28 +194,14 @@ function ServicesSection({ services }) {
   );
 }
 
-// ─── FOOTER ────────────────────────────────────────────────────────────────────
-function Footer() {
-  return (
-    <footer className="footer">
-      <div className="footer__inner">
-        <div className="footer__brand">
-          <span className="footer__logo">EventEase</span>
-          <span className="footer__tagline">© 2024 EventEase. The Digital Curator.</span>
-        </div>
-        <nav className="footer__links">
-          <a href="#" className="footer__link">Privacy Policy</a>
-          <a href="#" className="footer__link">Terms of Service</a>
-          <a href="#" className="footer__link">Contact Support</a>
-          <a href="#" className="footer__link">Careers</a>
-        </nav>
-      </div>
-    </footer>
-  );
-}
-
 // ─── MAIN PAGE ─────────────────────────────────────────────────────────────────
 export default function VendorProfile() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const vendor = dummyVenues.find((v) => v.id === Number(id));
+
+  if (!vendor) return <p>Vendor not found</p>;
+
   return (
     <>
       {/* Material Symbols Font */}
@@ -258,15 +210,11 @@ export default function VendorProfile() {
         rel="stylesheet"
       />
 
-      <Navbar />
-
       <main className="vendor-page">
-        <VendorHeader vendor={vendor} />
+        <VendorHeader vendor={vendor} navigate={navigate} />
         <PortfolioSection items={portfolioItems} />
         <ServicesSection services={services} />
       </main>
-
-      <Footer />
     </>
   );
 }

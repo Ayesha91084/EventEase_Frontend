@@ -9,6 +9,9 @@ import Photographer from './Photographer';
 import Login from './login';
 import Signup from './Signup';
 import About from './About';
+import VendorProfile from "./Photographer";
+import ChatPage from "./ChatPage";
+
 
 function App() {
   return (
@@ -24,6 +27,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/about" element={<About />} />
+        <Route path="/vendors/:id" element={<VendorProfile />} />
+        <Route path="/chat/:vendorId" element={<ChatPage />} />
+        
       </Routes>
 
       <Footer />

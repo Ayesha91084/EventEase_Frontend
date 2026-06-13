@@ -1,5 +1,5 @@
 .ee-nav {
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   right: 0;
@@ -10,6 +10,7 @@
   padding: 0 2.5rem;
   height: 64px;
   background: rgba(10, 10, 10, 0.85);
+  background-color: #fff;
   webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
