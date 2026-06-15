@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+import { useBooking } from "./Components/BookingContext";
 import "./Decorators.css";
 
 // ── Placeholder images (unsplash decor photos) ──────────────
@@ -57,6 +59,19 @@ const navLinks = ["Home", "Services", "Vendors", "About Us"];
 
 // ── Component ────────────────────────────────────────────────
 export default function VendorPage() {
+  const navigate = useNavigate();
+  const { setVendor } = useBooking();
+
+  const handleBookNow = () => {
+    setVendor({
+      id: 101,
+      name: "Floral Fantasy Decor",
+      category: "decorator",
+      price: 40000,
+    });
+    navigate("/details");
+  };
+
   return (
     <>
       {/* ── Navbar ── */}
@@ -122,7 +137,7 @@ export default function VendorPage() {
 
             <div className="vendor-actions">
               <button className="btn-outline">Chat with Vendor</button>
-              <button className="btn-primary">Book Now</button>
+              <button className="btn-primary" onClick={handleBookNow}>Book Now</button>
               <button className="btn-secondary">Pay Deposit</button>
             </div>
           </div>

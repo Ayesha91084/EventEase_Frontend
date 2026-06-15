@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useBooking } from "./Components/BookingContext";
 import { dummyVenues } from "./Components/VendorsData";
 import VendorCalendar from "./Components/VendorCalendar";
 import "./Photographer.css";
@@ -60,7 +61,7 @@ const services = [
 ];
 
 // ─── VENDOR HEADER ─────────────────────────────────────────────────────────────
-function VendorHeader({ vendor, navigate }) {
+function VendorHeader({ vendor, navigate, onBookNow }) {
   return (
     <div className="vendor-header">
       {/* Avatar */}
@@ -122,7 +123,7 @@ function VendorHeader({ vendor, navigate }) {
 
         <div className="vendor-header__cta">
           <button className="btn-chat" onClick={() => navigate(`/chat/${vendor.id}`)}> Chat with Vendor </button>
-          <button className="btn-book">Book Now</button>
+          <button className="btn-book" onClick={onBookNow}>Book Now</button>
           <button className="btn-deposit">Pay Deposit</button>
         </div>
       </div>
@@ -195,12 +196,29 @@ function ServicesSection({ services }) {
 }
 
 // ─── MAIN PAGE ─────────────────────────────────────────────────────────────────
+function getCategoryFromType(type) {
+  const t = (type || "").toLowerCase();
+  if (t.includes("photo")) return "photographer";
+  if (t.includes("decor")) return "decorator";
+  return "venue"; // Marquee, Hotel, Farmhouse, Hall, Convention Centre, Caterers
+}
 export default function VendorProfile() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { setVendor } = useBooking();
   const vendor = dummyVenues.find((v) => v.id === Number(id));
 
   if (!vendor) return <p>Vendor not found</p>;
+
+  const handleBookNow = () => {
+  setVendor({
+    id: vendor.id,
+    name: vendor.name,
+    category: getCategoryFromType(vendor.type),
+    price: vendor.price,
+  });
+  navigate("/details");
+};
 
   return (
     <>
@@ -211,9 +229,10 @@ export default function VendorProfile() {
       />
 
       <main className="vendor-page">
-        <VendorHeader vendor={vendor} navigate={navigate} />
+        <VendorHeader vendor={vendor} navigate={navigate} onBookNow={handleBookNow} />
         <PortfolioSection items={portfolioItems} />
         <ServicesSection services={services} />
+        <VendorCalendar vendor={vendor} /> 
       </main>
     </>
   );
