@@ -2,6 +2,7 @@ import { HashRouter, Routes, Route } from 'react-router-dom';
 import { BookingProvider } from "./Components/BookingContext";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
+import { NotificationProvider } from "./Components/NotificationContext";
 import Home from './Home';
 import Vendors from './Vendors';
 import Venuepage from './Venuepage';
@@ -21,6 +22,7 @@ function App() {
   return (
     <HashRouter>
       <BookingProvider>
+        <NotificationProvider>
       <Navbar />
 
       <Routes>
@@ -41,6 +43,7 @@ function App() {
       </Routes>
 
       <Footer />
+      </NotificationProvider>
       </BookingProvider>
     </HashRouter>
   );

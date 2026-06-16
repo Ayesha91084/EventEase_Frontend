@@ -1,4 +1,5 @@
 import { useNavigate, Link } from 'react-router-dom';
+import NotificationBell from "./NotificationBell";
 import "./Navbar.css";
 
 export default function Navbar() {
@@ -14,6 +15,7 @@ export default function Navbar() {
         <Link to="/about">About Us</Link>
       </div>
       <div className="ee-nav-actions">
+        <NotificationBell/>
         <button className="ee-btn-ghost" onClick={() => navigate('/login')}>Login</button>
         <button className="ee-btn-primary" onClick={() => navigate('/signup')}>Sign Up</button>
       </div>
