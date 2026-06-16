@@ -10,6 +10,7 @@ import Decorators from './Decorators';
 import Photographer from './Photographer';
 import Login from './login';
 import Signup from './Signup';
+import VendorRegistration from "./VendorRegistrationform";
 import About from './About';
 import VendorProfile from "./Photographer";
 import ChatPage from "./ChatPage";
@@ -33,6 +34,7 @@ function App() {
         <Route path="/photographer" element={<Photographer />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/vendor-register" element={<VendorRegistration />} />
         <Route path="/about" element={<About />} />
         <Route path="/vendors/:id" element={<VendorProfile />} />
         <Route path="/chat/:vendorId" element={<ChatPage />} />

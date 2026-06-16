@@ -1,0 +1,127 @@
+.vendor-register-container {
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f7f5fb;
+  padding: 40px 20px;
+}
+
+.vendor-register-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 480px;
+  padding: 40px 35px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.vendor-register-card h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #2d2540;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.vendor-register-card p {
+  font-size: 14px;
+  color: #777;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.vendor-register-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.vendor-register-card label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.vendor-register-card input[type="text"],
+.vendor-register-card input[type="file"],
+.vendor-register-card textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.vendor-register-card input[type="text"]:focus,
+.vendor-register-card textarea:focus {
+  border-color: #7c3aed;
+}
+
+.vendor-register-card textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.file-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: #555;
+}
+
+.file-list li {
+  background: #f1eefb;
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+}
+
+.vendor-register-card button[type="submit"] {
+  background-color: #7c3aed;
+  color: #fff;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s ease;
+}
+
+.vendor-register-card button[type="submit"]:hover {
+  background-color: #6b21d4;
+}
+
+.vendor-register-card button[type="submit"]:disabled {
+  background-color: #c4b5fd;
+  cursor: not-allowed;
+}
+
+.error-msg {
+  color: #d32f2f;
+  background: #fdecea;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.success-msg {
+  color: #2e7d32;
+  background: #eaf7ea;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  text-align: center;
+  margin-bottom: 15px;
+}
