@@ -78,24 +78,26 @@ body { font-family: 'Jost', sans-serif; background: #f9f7f4; color: #1a1209;marg
 .ee-search-btn:hover { background: #c9a96e; }
 .ee-search-btn svg { width: 18px; height: 18px; }
 
-.ee-section { padding: 40px 48px;
-display: flex;
-flex-direction: column;
-align-items: flex-start; }
+.ee-section { padding: 40px 48px; }
 .ee-section-title {
-  text-align: center; font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display', serif;text-align: center;
   font-size: 36px; color: #1a1209; letter-spacing: -0.5px; margin-bottom: 8px;
-  margin-top: 0;
 }
 .ee-section-rule {
-  width: 40px; height: 2px; background: #b4945a;
-  margin-top: 0;
-  padding-top: 0;
+  width: 40px; height: 2px; background: #b4945a; margin-bottom: 24px; margin: 0 auto;
 }
 
 .ee-services-grid {
-  display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px;
-  max-width:100%; margin-top: 24px auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
+  .ee-services-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .ee-services-grid { grid-template-columns: 1fr; }
 }
 .ee-service-card {
   display: flex; flex-direction: column; align-items: center; gap: 14px;
@@ -103,7 +105,7 @@ align-items: flex-start; }
 }
 .ee-service-card:hover { transform: translateY(-4px); }
 .ee-service-img {
-  width: 100%; aspect-ratio: 1; border-radius: 14px;
+  width: 100%; height: 160px; border-radius: 14px;
   overflow: hidden; position: relative;
   box-shadow: 0 6px 24px rgba(0,0,0,0.12);
 }
@@ -168,3 +170,64 @@ align-items: flex-start; }
 .ee-footer-icon:hover { border-color: #b4945a; color: #b4945a; }
 
 @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+
+/* =============================================
+   RESPONSIVE — TABLET (max 1024px)
+   ============================================= */
+@media (max-width: 1024px) {
+  .ee-vendors-grid { grid-template-columns: repeat(2, 1fr); }
+  .ee-footer-grid  { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+
+/* =============================================
+   RESPONSIVE — MOBILE (max 768px)
+   ============================================= */
+@media (max-width: 768px) {
+
+  /* Navbar */
+  .ee-nav { height: 56px; padding: 0 20px; }
+  .ee-nav-links { display: none; }
+  .ee-btn-ghost { display: none; }
+  .ee-btn-primary { padding: 8px 14px; font-size: 13px; }
+  .ee-logo { font-size: 18px; }
+
+  /* Hero */
+  .ee-hero { min-height: 85vh; }
+  .ee-hero-content { padding: 0 16px; }
+  .ee-hero h1 { font-size: clamp(26px, 8vw, 40px); letter-spacing: -0.5px; }
+
+  /* Search bar — vertical stack */
+  .ee-search-bar { flex-direction: column; margin-top: 24px; }
+  .ee-search-select { padding: 14px 16px; font-size: 14px; border-bottom: 1px solid rgba(180,148,90,0.2); }
+  .ee-search-divider { display: none; }
+  .ee-search-btn { padding: 14px 20px; justify-content: center; font-size: 14px; }
+
+  /* Services */
+  .ee-section { padding: 32px 16px; }
+  .ee-section-title { font-size: 26px; }
+  .ee-services-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px; }
+  .ee-service-img { height: 130px; }
+  .ee-service-emoji { font-size: 28px; }
+
+  /* Vendors */
+  .ee-vendors-section { padding: 48px 16px; }
+  .ee-vendors-header { flex-direction: column; align-items: flex-start; gap: 10px; margin-bottom: 20px; }
+  .ee-vendors-header h2 { font-size: 24px; }
+  .ee-vendors-header p { max-width: 100%; }
+  .ee-vendors-grid { grid-template-columns: 1fr; }
+
+  /* Footer */
+  .ee-footer { padding: 40px 16px 24px; }
+  .ee-footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+  .ee-footer-bottom { flex-direction: column; gap: 12px; align-items: flex-start; }
+}
+
+/* =============================================
+   RESPONSIVE — SMALL MOBILE (max 480px)
+   ============================================= */
+@media (max-width: 480px) {
+  .ee-services-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; }
+  .ee-service-img { height: 110px; border-radius: 10px; }
+  .ee-service-label { font-size: 11px; }
+  .ee-footer-grid { grid-template-columns: 1fr; }
+}

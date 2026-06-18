@@ -23,18 +23,12 @@ const Signup = () => {
       });
 
       localStorage.setItem('token', response.data.token);
-      if (role === 'vendor') {
-      localStorage.setItem('userId', response.data.user?._id || response.data._id);
-      navigate('/vendor-register');
-    } else {
       alert('Account created successfully!');
-      navigate('/login');
+      navigate('/login'); // login page pe bhejo
+    } catch (err) {
+      setError(err.response?.data?.msg || 'Signup failed');
     }
-
-  } catch (err) {
-    setError(err.response?.data?.msg || 'Signup failed');
-  }
-};
+  };
 
   return (
     <div className="signup-container">

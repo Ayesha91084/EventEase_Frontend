@@ -174,4 +174,3 @@ function BookingDetails() {
 }
 
 export default BookingDetails;
-

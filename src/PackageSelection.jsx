@@ -5,7 +5,6 @@ import "./BookingDetails.css";
 import "./PackageSelection.css";
 
 // ─── PACKAGE DATA - har vendor category ka apna data ───────────────────────
-// perHead: true matlab price guest count se multiply hoga (venue/catering)
 const PACKAGE_DATA = {
   photographer: {
     label: "Photographer",

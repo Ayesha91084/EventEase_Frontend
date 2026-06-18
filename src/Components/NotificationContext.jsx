@@ -29,15 +29,26 @@ export function NotificationProvider({ children }) {
     );
   };
 
+  const markAllAsRead = () => {
+    setNotifications((prev) =>
+      prev.map((n) => ({ ...n, isRead: true }))
+    );
+  };
+
   return (
     <NotificationContext.Provider
-      value={{ notifications, unreadCount, markAsRead }}
+      value={{
+        notifications,
+        unreadCount,
+        markAsRead,
+        markAllAsRead,
+        setNotifications,
+      }}
     >
       {children}
     </NotificationContext.Provider>
   );
 }
 
-export function useNotifications() {
-  return useContext(NotificationContext);
-}
+export const useNotifications = () => useContext(NotificationContext);
+

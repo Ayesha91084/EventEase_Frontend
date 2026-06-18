@@ -17,12 +17,12 @@ const citiesByCountry = {
 };
 
 const services = [
-  { label: "Weddings", emoji: "💍", bg: "#1a1209" },
-  { label: "Corporate", emoji: "🤝", bg: "#0d1a1a" },
-  { label: "Parties", emoji: "🎉", bg: "#1a0d0d" },
-  { label: "Social Gatherings", emoji: "🥂", bg: "#0d1209" },
-  { label: "Gala Dinners", emoji: "🕯️", bg: "#12090d" },
-  { label: "Festivals", emoji: "🎆", bg: "#090d1a" },
+  { label: "Weddings", bg: "#1a1209" },
+  { label: "Corporate", bg: "#0d1a1a" },
+  { label: "Parties", bg: "#1a0d0d" },
+  { label: "Social Gatherings", bg: "#0d1209" },
+  { label: "Gala Dinners", bg: "#12090d" },
+  { label: "Festivals", bg: "#090d1a" },
 ];
 
 const vendors = [
@@ -126,9 +126,14 @@ export default function Home() {
       <section className="ee-section">
         <h2 className="ee-section-title">Our Services</h2>
         <div className="ee-section-rule" />
-        <div className="ee-services-grid">
+        <div className="ee-services-grid" style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: '16px',
+          width: '100%'
+        }}>
           {services.map((s, i) => (
-            <div className="ee-service-card" key={s.label}>
+            <div className="ee-service-card" key={s.label} style={{ width: '100%' }}>
               <div className="ee-service-img">
                 <div
                   className="ee-service-img-inner"
