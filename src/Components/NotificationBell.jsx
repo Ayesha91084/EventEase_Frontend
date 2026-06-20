@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Bell } from "lucide-react"; // agar yeh library nahi hai to bata dein
+import { Bell } from "lucide-react";
 import { useNotifications } from "./NotificationContext";
 import NotificationDropdown from "./NotificationDropdown";
 

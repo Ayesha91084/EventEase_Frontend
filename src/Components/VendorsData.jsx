@@ -1,6 +1,6 @@
 const dummyVenues = [
   {
-    id: 1,
+    UserId: 1,
     name: "Royal Marquee Gardens",
     country: "Pakistan",
     city: "Lahore",
@@ -17,7 +17,7 @@ const dummyVenues = [
     bookedDates: ["2026-06-06", "2026-06-08", "2026-06-22"],
   },
   {
-    id: 2,
+    UserId: 2,
     name: "Pearl Continental Banquet",
     country: "Pakistan",
     city: "Lahore",
@@ -34,7 +34,7 @@ const dummyVenues = [
     bookedDates: ["2026-06-06", "2026-06-08", "2026-06-22"],
   },
   {
-    id: 3,
+    UserId: 3,
     name: "Serena Ballroom",
     country: "Pakistan",
     city: "Islamabad",
@@ -51,7 +51,7 @@ const dummyVenues = [
     bookedDates: ["2026-06-06", "2026-06-08", "2026-06-22"],
   },
   {
-    id: 4,
+    UserId: 4,
     name: "Green Valley Farm House",
     country: "Pakistan",
     city: "Lahore",
@@ -68,7 +68,7 @@ const dummyVenues = [
     bookedDates: ["2026-06-06", "2026-06-08", "2026-06-22"],
   },
   {
-    id: 5,
+    UserId: 5,
     name: "Faletti's Grand Hall",
     country: "Pakistan",
     city: "Lahore",
@@ -85,7 +85,7 @@ const dummyVenues = [
     bookedDates: ["2026-06-06", "2026-06-08", "2026-06-22"],
   },
   {
-    id: 6,
+    UserId: 6,
     name: "Moon Photography",
     country: "Pakistan",
     city: "Lahore",
@@ -102,7 +102,7 @@ const dummyVenues = [
     bookedDates: ["2026-06-06", "2026-06-08", "2026-06-22"],
   },
   {
-    id: 7,
+    UserId: 7,
     name: "Islamabad Convention Centre",
     country: "Pakistan",
     city: "Islamabad",
@@ -119,7 +119,7 @@ const dummyVenues = [
     bookedDates: ["2026-06-06", "2026-06-08", "2026-06-22"],
   },
   {
-    id: 8,
+    UserId: 8,
     name: "Arfa Usman Photographer",
     country: "Pakistan",
     city: "Islamabad",
@@ -136,7 +136,7 @@ const dummyVenues = [
     bookedDates: ["2026-06-06", "2026-06-08", "2026-06-22"],
   },
   {
-    id: 9,
+    UserId: 9,
     name: "Hanif Rajput Design",
     country: "Pakistan",
     city: "Karachi",

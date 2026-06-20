@@ -103,7 +103,7 @@ function BookingDetails() {
             </div>
 
             <div className="form-group">
-              <label>Event Date *</label>
+              <label>Event Date</label>
               <input
                 type="date"
                 name="eventDate"
@@ -113,7 +113,7 @@ function BookingDetails() {
             </div>
 
             <div className="form-group">
-              <label>City *</label>
+              <label>City </label>
               <select name="city" value={form.city} onChange={handleChange}>
                 <option>Lahore</option>
                 <option>Karachi</option>
@@ -135,7 +135,7 @@ function BookingDetails() {
             </div>
 
             <div className="form-group form-group--full">
-              <label>Contact Number *</label>
+              <label>Contact Number</label>
               <input
                 type="tel"
                 name="contact"

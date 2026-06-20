@@ -16,7 +16,7 @@ export default function AboutPage() {
         <h2 className="ee-section-title">Our Mission & Vision</h2>
         <div className="ee-mission-vision-grid">
           <div className="ee-mv-card">
-            <div className="ee-card-icon-wrapper mission-icon">🚀</div>
+            <div className="ee-card-icon-wrapper mission-icon"></div>
             <h3>Our Mission</h3>
             <p>
               To seamlessly blend technology and celebration, making dream events an accessible 
@@ -24,7 +24,7 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="ee-mv-card">
-            <div className="ee-card-icon-wrapper vision-icon">👁️</div>
+            <div className="ee-card-icon-wrapper vision-icon"></div>
             <h3>Our Vision</h3>
             <p>
               To become the world's leading platform for virtual event planning, transforming 
@@ -77,7 +77,7 @@ export default function AboutPage() {
         <div className="ee-services-grid">
           {/* Service 1 */}
           <div className="ee-service-card">
-            <div className="ee-service-icon">🎂</div>
+            <div className="ee-service-icon"></div>
             <h3>Birthday Parties</h3>
             <p>
               From intimate gatherings to grand celebrations, we provide the tools to plan the perfect 
@@ -95,7 +95,7 @@ export default function AboutPage() {
           </div>
           {/* Service 3 */}
           <div className="ee-service-card">
-            <div className="ee-service-icon">📷</div>
+            <div className="ee-service-icon"></div>
             <h3>Online Venue Visits</h3>
             <p>
               Our signature feature. Explore event spaces with immersive 360° virtual tours, saving 
@@ -104,7 +104,7 @@ export default function AboutPage() {
           </div>
           {/* Service 4 */}
           <div className="ee-service-card">
-            <div className="ee-service-icon">🏪</div>
+            <div className="ee-service-icon"></div>
             <h3>Vendor Browsing & Booking</h3>
             <p>
               Access our curated marketplace of trusted vendors, from caterers and photographers to 

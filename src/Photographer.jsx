@@ -3,34 +3,35 @@ import { useNavigate } from "react-router-dom";
 import { useBooking } from "./Components/BookingContext";
 import { dummyVenues } from "./Components/VendorsData";
 import VendorCalendar from "./Components/VendorCalendar";
+import VendorMap from "./Components/VendorMap";
 import "./Photographer.css";
 
 
 const portfolioItems = [
   {
-    id: 1,
+    UserId: 1,
     featured: true,
     caption: "Grand Banquet Gala",
     img: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=700&q=80",
     hasPlay: true,
   },
   {
-    id: 2,
+    UserId: 2,
     img: "https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=400&q=80",
     hasPlay: true,
   },
   {
-    id: 3,
+    UserId: 3,
     img: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&q=80",
     hasPlay: true,
   },
   {
-    id: 4,
+    UserId: 4,
     img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",
     hasPlay: true,
   },
   {
-    id: 5,
+    UserId: 5,
     img: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400&q=80",
     hasPlay: true,
   },
@@ -38,21 +39,21 @@ const portfolioItems = [
 
 const services = [
   {
-    id: 1,
+    UserId: 1,
     icon: "photo_camera",
     name: "Digital Photography",
     desc: "High-resolution digital coverage using state-of-the-art Sony & Canon systems for crisp, vibrant results.",
     price: "From Rs. 1,200",
   },
   {
-    id: 2,
+    UserId: 2,
     icon: "videocam",
     name: "4K Cinematography",
     desc: "Story-driven wedding films with professional audio recording and color grading for a true movie experience.",
     price: "From Rs. 2,500",
   },
   {
-    id: 3,
+    UserId: 3,
     icon: "auto_fix_high",
     name: "Event Showcase",
     desc: "Complete coverage of corporate events, launches, and gala nights with rapid 24-hour turnaround for socials.",
@@ -232,7 +233,18 @@ export default function VendorProfile() {
         <VendorHeader vendor={vendor} navigate={navigate} onBookNow={handleBookNow} />
         <PortfolioSection items={portfolioItems} />
         <ServicesSection services={services} />
-        <VendorCalendar vendor={vendor} /> 
+        <div style={{ display: "flex", gap: "20px", flexWrap: "wrap", marginTop: "20px" }}>
+  <div>
+    <VendorCalendar vendor={vendor} />
+  </div>
+
+  <div style={{ flex: 1, minWidth: "300px" }}>
+    <h3 style={{ marginBottom: "10px", color: "#888", fontSize: "14px" }}>
+      VENDOR LOCATION
+    </h3>
+    <VendorMap />
+  </div>
+</div> 
       </main>
     </>
   );

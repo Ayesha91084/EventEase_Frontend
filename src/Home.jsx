@@ -96,7 +96,7 @@ export default function Home() {
               value={country}
               onChange={e => { setCountry(e.target.value); setCity(""); }}
             >
-              <option value="" disabled hidden>🌍  Select Country</option>
+              <option value="" disabled hidden>  Select Country</option>
               {countries.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
 
@@ -108,7 +108,7 @@ export default function Home() {
               onChange={e => setCity(e.target.value)}
               disabled={!country}
             >
-              <option value="" disabled hidden>🏙️  {country ? "Select City" : "Select Country First"}</option>
+              <option value="" disabled hidden> {country ? "Select City" : "Select Country First"}</option>
               {cities.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
 
