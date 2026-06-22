@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import "./Admindashboard.css";
+import API from "./api/axiosConfig";
 
 const navSections = [
   {
@@ -34,12 +36,6 @@ const navSections = [
   },
 ];
 
-const statCards = [
-  { color: "gold", label: "Total Revenue", value: "Rs 4.2M", trend: "↑ 8.4%", trendLabel: "vs last month", trendUp: true },
-  { color: "green", label: "Registered Users", value: "1,284", trend: "↑ 12", trendLabel: "new this week", trendUp: true },
-  { color: "blue", label: "Total Bookings", value: "342", trend: "↑ 23", trendLabel: "this month", trendUp: true },
-  { color: "red", label: "Vendor Payouts", value: "Rs 3.8M", trend: "↑ 94%", trendLabel: "disbursed", trendUp: true },
-];
 
 const vendors = [
   { initials: "ZE", name: "Zara Events", type: "Catering — docs uploaded", status: "pending", colorClass: "va-a" },
@@ -89,8 +85,27 @@ const vendorBars = [
 ];
 
 export default function Admindashboard() {
-  const [activeNav, setActiveNav] = ("Dashboard");
+  const [activeNav, setActiveNav] = useState("Dashboard");
+  const [stats, setStats] = useState(null);
 
+  useEffect(() => {
+  const fetchStats = async () => {
+    try {
+      const response = await API.get('/api/admin/summary');
+      setStats(response.data.stats);
+    } catch (err) {
+      console.error("Stats error:", err);
+    }
+  };
+  fetchStats();
+}, []);
+  
+  const statCards = [
+  { color: "gold", label: "Total Users", value: stats ? stats.totalUsers : "...", trend: "↑ Live", trendLabel: "from database", trendUp: true },
+  { color: "green", label: "Total Vendors", value: stats ? stats.totalVendors : "...", trend: "↑ Live", trendLabel: "from database", trendUp: true },
+  { color: "blue", label: "Total Customers", value: stats ? stats.totalCustomers : "...", trend: "↑ Live", trendLabel: "from database", trendUp: true },
+  { color: "red", label: "Verified Vendors", value: stats ? stats.verifiedVendors : "...", trend: "↑ Live", trendLabel: "from database", trendUp: true },
+];
   return (
     <div className="shell">
       {/* Decorative blobs */}

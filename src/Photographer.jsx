@@ -123,7 +123,7 @@ function VendorHeader({ vendor, navigate, onBookNow }) {
         </div>
 
         <div className="vendor-header__cta">
-          <button className="btn-chat" onClick={() => navigate(`/chat/${vendor.id}`)}> Chat with Vendor </button>
+          <button className="btn-chat" onClick={() => navigate(`/chat/${vendor.Id}`)}> Chat with Vendor </button>
           <button className="btn-book" onClick={onBookNow}>Book Now</button>
           <button className="btn-deposit">Pay Deposit</button>
         </div>
@@ -150,12 +150,12 @@ function PortfolioSection({ items }) {
       <div className="portfolio-grid">
         {items.map((item) => (
           <div
-            key={item.id}
+            key={item.UserId}
             className={`portfolio-item${item.featured ? " portfolio-item--featured" : ""}`}
           >
             <img
               src={item.img}
-              alt={item.caption || `Portfolio item ${item.id}`}
+              alt={item.caption || `Portfolio item ${item.UserId}`}
               className="portfolio-item__img"
             />
 
@@ -182,7 +182,7 @@ function ServicesSection({ services }) {
     <section className="services-section">
       <div className="services-grid">
         {services.map((s) => (
-          <div key={s.id} className="service-card">
+          <div key={s.UserId} className="service-card">
             <div className="service-card__icon">
               <span className="material-symbols-outlined">{s.icon}</span>
             </div>
@@ -207,13 +207,14 @@ export default function VendorProfile() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { setVendor } = useBooking();
-  const vendor = dummyVenues.find((v) => v.id === Number(id));
+  const vendor = dummyVenues.find((v) => v.UserId === Number(id));
+  console.log("Vendor found:", vendor);
 
   if (!vendor) return <p>Vendor not found</p>;
 
   const handleBookNow = () => {
   setVendor({
-    id: vendor.id,
+    id: vendor.UserId,
     name: vendor.name,
     category: getCategoryFromType(vendor.type),
     price: vendor.price,

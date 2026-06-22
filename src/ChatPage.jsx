@@ -1,10 +1,13 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import "./ChatPage.css";
+import API from "./api/axiosConfig";
 
-const conversations = [
+
+const dummyConversations = [
   {
     id: 1,
+    vendorId: "vendor1",
     name: "Moon Photography",
     type: "photo",
     icon: "photo_camera",
@@ -15,15 +18,10 @@ const conversations = [
     location: "Lahore",
     price: "PKR 10,000",
     verified: true,
-    messages: [
-      { id: 1, from: "vendor", text: "Assalam o Alaikum! Thank you for reaching out to Moon Photography. How can we help you today?", time: "09:15 AM" },
-      { id: 2, from: "me", text: "Hi! I'm interested in your wedding package for 15 August. Are you available on that date?", time: "09:18 AM" },
-      { id: 3, from: "vendor", text: "Yes! The 15th is open. It's a popular date so I can hold it for you for 24 hours while we discuss the details.", time: "09:20 AM" },
-      { id: 4, from: "me", text: "That would be great! Please send me the full package details.", time: "09:22 AM" },
-    ],
   },
   {
     id: 2,
+    vendorId: "vendor2",
     name: "Hanif Rajput Decor",
     type: "dec",
     icon: "yard",
@@ -34,14 +32,10 @@ const conversations = [
     location: "Karachi",
     price: "PKR 10,000",
     verified: true,
-    messages: [
-      { id: 1, from: "vendor", text: "Hello! Welcome to Hanif Rajput Design. How can we assist you?", time: "08:00 AM" },
-      { id: 2, from: "me", text: "I need decor for a wedding in September.", time: "08:05 AM" },
-      { id: 3, from: "vendor", text: "Please send us your event date and venue so we can check availability.", time: "08:10 AM" },
-    ],
   },
   {
     id: 3,
+    vendorId: "vendor3",
     name: "Zaiqa Catering",
     type: "cat",
     icon: "restaurant",
@@ -52,60 +46,94 @@ const conversations = [
     location: "Lahore",
     price: "PKR 5,000",
     verified: false,
-    messages: [
-      { id: 1, from: "vendor", text: "Assalam o Alaikum! Welcome to Zaiqa Catering. What event are you planning?", time: "07:00 AM" },
-      { id: 2, from: "me", text: "We need catering for 300 guests for a wedding.", time: "07:10 AM" },
-      { id: 3, from: "vendor", text: "We have sent you the menu details. Please check!", time: "07:20 AM" },
-    ],
   },
 ];
 
 export default function ChatPage() {
+  const { vendorId } = useParams(); 
   const navigate = useNavigate();
-  const [activeId, setActiveId] = useState(1);
+
+  const userId = localStorage.getItem("userId");
+
+  const initialConvo = dummyConversations.find(
+    (c) => c.vendorId === vendorId
+  ) || dummyConversations[0];
+
+  const [activeConvo, setActiveConvo] = useState(initialConvo);
+  const [messages, setMessages] = useState([]); 
   const [inputText, setInputText] = useState("");
-  const [allConvos, setAllConvos] = useState(conversations);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const activeConvo = allConvos.find((c) => c.id === activeId);
+  const room = `${userId}_${activeConvo.vendorId}`;
 
-  const sendMessage = () => {
-    if (!inputText.trim()) return;
-    const newMsg = {
-      id: activeConvo.messages.length + 1,
-      from: "me",
-      text: inputText.trim(),
-      time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+  useEffect(() => {
+    const fetchMessages = async () => {
+      if (!userId) return;
+      setLoading(true);
+      try {
+        const response = await API.get(`/api/chat/${room}`);
+        if (response.data.success) {
+          setMessages(response.data.messages);
+        }
+      } catch (err) {
+        console.error("Chat history error:", err);
+        setMessages([
+          {
+            _id: 1,
+            sender: "vendor",
+            message: `Assalam o Alaikum! Welcome to ${activeConvo.name}. How can we help you?`,
+            timestamp: new Date().toISOString(),
+          },
+        ]);
+      } finally {
+        setLoading(false);
+      }
     };
-    setAllConvos((prev) =>
-      prev.map((c) =>
-        c.id === activeId
-          ? { ...c, messages: [...c.messages, newMsg], preview: inputText.trim() }
-          : c
-      )
-    );
+    fetchMessages();
+  }, [room]);
+
+  const sendMessage = async () => {
+    if (!inputText.trim()) return;
+
+    const newMsg = {
+      _id: Date.now(),
+      sender: userId,
+      message: inputText.trim(),
+      timestamp: new Date().toISOString(),
+    };
+
+    setMessages((prev) => [...prev, newMsg]);
     setInputText("");
+
+    try {
+      await API.post("/api/chat/save", {
+        room,
+        sender: userId,
+        message: inputText.trim(),
+      });
+    } catch (err) {
+      console.error("Message save error:", err);
+    }
   };
 
   const handleKey = (e) => {
     if (e.key === "Enter") sendMessage();
   };
 
-  const filtered = allConvos.filter((c) =>
+  const filtered = dummyConversations.filter((c) =>
     c.name.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
     <div className="cp-page">
-      {/* TOPBAR */}
-
       {/* CHAT LAYOUT */}
       <div className="cp-layout">
         {/* SIDEBAR */}
         <aside className="cp-sidebar">
           <div className="cp-sidebar-header">
             <p>Messages</p>
-            <span>{allConvos.length} conversations</span>
+            <span>{dummyConversations.length} conversations</span>
           </div>
           <div className="cp-search">
             <span className="material-symbols-outlined">search</span>
@@ -120,8 +148,11 @@ export default function ChatPage() {
             {filtered.map((c) => (
               <div
                 key={c.id}
-                className={`cp-convo-item ${c.id === activeId ? "active" : ""}`}
-                onClick={() => setActiveId(c.id)}
+                className={`cp-convo-item ${c.id === activeConvo.id ? "active" : ""}`}
+                onClick={() => {
+                  setActiveConvo(c);
+                  setMessages([]); 
+                }}
               >
                 <div className={`cp-avatar cp-avatar-${c.type}`}>
                   <span className="material-symbols-outlined">{c.icon}</span>
@@ -173,7 +204,9 @@ export default function ChatPage() {
             <span>
               {activeConvo.name} · {activeConvo.location} · {activeConvo.price} starting
             </span>
-            <button className="cp-strip-book">Book Now</button>
+            <button className="cp-strip-book" onClick={() => navigate(`/vendors/${activeConvo.vendorId}`)}>
+              Book Now
+            </button>
           </div>
 
           {/* MESSAGES */}
@@ -181,24 +214,40 @@ export default function ChatPage() {
             <div className="cp-date-divider">
               <span>Today</span>
             </div>
-            {activeConvo.messages.map((msg) => (
-              <div
-                key={msg.id}
-                className={`cp-msg-row ${msg.from === "me" ? "mine" : ""}`}
-              >
-                <div className={`cp-msg-av ${msg.from === "me" ? "me" : `cp-avatar-${activeConvo.type}`}`}>
-                  <span className="material-symbols-outlined">
-                    {msg.from === "me" ? "person" : activeConvo.icon}
-                  </span>
-                </div>
-                <div className={`cp-msg-col ${msg.from === "me" ? "mine" : ""}`}>
-                  <div className={`cp-bubble ${msg.from === "me" ? "mine" : "vendor"}`}>
-                    {msg.text}
-                  </div>
-                  <div className="cp-msg-time">{msg.time}</div>
-                </div>
+
+            {loading && (
+              <div style={{ textAlign: "center", padding: "20px", color: "#9ca3af" }}>
+                Loading messages...
               </div>
-            ))}
+            )}
+
+            {/* ✅ API se aaye messages */}
+            {messages.map((msg) => {
+              const isMe = msg.sender === userId || msg.sender?._id === userId;
+              return (
+                <div
+                  key={msg._id}
+                  className={`cp-msg-row ${isMe ? "mine" : ""}`}
+                >
+                  <div className={`cp-msg-av ${isMe ? "me" : `cp-avatar-${activeConvo.type}`}`}>
+                    <span className="material-symbols-outlined">
+                      {isMe ? "person" : activeConvo.icon}
+                    </span>
+                  </div>
+                  <div className={`cp-msg-col ${isMe ? "mine" : ""}`}>
+                    <div className={`cp-bubble ${isMe ? "mine" : "vendor"}`}>
+                      {msg.message}
+                    </div>
+                    <div className="cp-msg-time">
+                      {new Date(msg.timestamp).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
           {/* INPUT */}
