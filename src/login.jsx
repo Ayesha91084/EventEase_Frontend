@@ -25,7 +25,8 @@ const LoginForm = () => {
 
       localStorage.setItem('token', token);
       localStorage.setItem('userId', user.id);
-      localStorage.setItem('role', user.role);   
+      localStorage.setItem('role', user.role); 
+      localStorage.setItem('userEmail', user.email);  
 
       if (user.role === 'admin') {
         navigate('/admin-dashboard');

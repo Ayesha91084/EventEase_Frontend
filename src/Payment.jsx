@@ -46,7 +46,6 @@ function Payment() {
     try {
       setLoading(true);
 
-      // ✅ NEW: Backend ko yeh data bhej rahe hain
       const bookingData = {
         serviceId: vendor.id,             
         vendorId: vendor.id,               
@@ -57,9 +56,15 @@ function Payment() {
       const response = await API.post('/api/bookings/book', bookingData);
 
       if (response.data.success) {
-        alert("Booking confirmed! Aapki booking successfully save ho gayi.");
-        navigate("/");
-      }
+        const userEmail = localStorage.getItem('userEmail');
+        await API.post('/api/notifications/send-email', {
+           to: userEmail,
+             subject: "EventEase - Booking Confirmed!",
+              text: `Assalam o Alaikum! Aapki booking ${vendor.name} ke sath confirm ho gayi. Event date: ${bookingDetails.eventDate}. Total amount: PKR ${totalPrice}`
+                });
+                alert("Booking confirmed! Email sent");
+               navigate("/");
+              }
 
     } catch (err) {
       console.error("Booking error:", err);

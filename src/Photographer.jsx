@@ -1,9 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { useBooking } from "./Components/BookingContext";
 import { dummyVenues } from "./Components/VendorsData";
 import VendorCalendar from "./Components/VendorCalendar";
 import VendorMap from "./Components/VendorMap";
+import API from "./api/axiosConfig";
 import "./Photographer.css";
 
 
@@ -195,6 +197,84 @@ function ServicesSection({ services }) {
     </section>
   );
 }
+function RatingSection({ vendorUserId }) {
+  const [userRating, setUserRating] = useState(0);
+  const [hoveredRating, setHoveredRating] = useState(0);
+  const [ratingSubmitted, setRatingSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleRating = async (stars) => {
+    const customerId = localStorage.getItem("userId");
+
+    if (!customerId) {
+      alert("Pehle login karo rating dene ke liye!");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      await API.post("/api/ratings/give-rating", {
+        vendorId: vendorUserId.toString(),
+        customerId,
+        stars,
+      });
+      setUserRating(stars);
+      setRatingSubmitted(true);
+      alert("Rating submit ho gayi! Shukriya! ⭐");
+    } catch (err) {
+      console.error("Rating error:", err);
+      alert("Rating submit nahi hui. Dobara try karo.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div style={{
+      padding: "24px",
+      background: "#fff",
+      borderRadius: "12px",
+      marginTop: "20px",
+      border: "1px solid #e5e7eb",
+      boxShadow: "0 2px 8px rgba(0,0,0,0.06)"
+    }}>
+      <h3 style={{ marginBottom: "6px", color: "#1e293b", fontSize: "16px", fontWeight: 600 }}>
+        Rate this Vendor
+      </h3>
+      <p style={{ marginBottom: "14px", color: "#6b7280", fontSize: "13px" }}>
+        How was your experience?click on stars!
+      </p>
+
+      {ratingSubmitted ? (
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <span style={{ fontSize: "24px" }}>✅</span>
+          <p style={{ color: "#1d9e75", fontWeight: 500 }}>
+            Aapne {userRating} star rating di! Shukriya!
+          </p>
+        </div>
+      ) : (
+        <div style={{ display: "flex", gap: "8px" }}>
+          {[1, 2, 3, 4, 5].map((star) => (
+            <span
+              key={star}
+              onClick={() => !loading && handleRating(star)}
+              onMouseEnter={() => setHoveredRating(star)}
+              onMouseLeave={() => setHoveredRating(0)}
+              style={{
+                fontSize: "36px",
+                cursor: loading ? "not-allowed" : "pointer",
+                color: star <= (hoveredRating || userRating) ? "#f59e0b" : "#d1d5db",
+                transition: "color 0.15s",
+              }}
+            >
+              ★
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 // ─── MAIN PAGE ─────────────────────────────────────────────────────────────────
 function getCategoryFromType(type) {
@@ -244,8 +324,10 @@ export default function VendorProfile() {
       VENDOR LOCATION
     </h3>
     <VendorMap />
-  </div>
-</div> 
+     </div>
+   </div>
+
+    <RatingSection vendorUserId={vendor.UserId} /> 
       </main>
     </>
   );
