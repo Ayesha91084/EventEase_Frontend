@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useBooking } from "./Components/BookingContext";
 import "./BookingDetails.css";
 import "./Payment.css";
+import API from './api/axiosConfig';
 
 const PLATFORM_FEE = 600; // fixed platform fee
 const ADVANCE_PERCENT = 0.3; // 30% advance payment
@@ -16,6 +17,7 @@ function Payment() {
   const [expiry, setExpiry] = useState("");
   const [cvc, setCvc] = useState("");
   const [billingAddress, setBillingAddress] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // Agar pehle steps complete nahi hue, wapas bhej do
   if (!vendor || !bookingDetails || !selectedPackage) {
@@ -34,18 +36,42 @@ function Payment() {
   const advanceAmount = Math.round(totalPrice * ADVANCE_PERCENT);
   const totalDueToday = advanceAmount + PLATFORM_FEE;
 
-  const handlePay = (e) => {
+  const handlePay = async (e) => {
     e.preventDefault();
 
     if (!cardName || !cardNumber || !expiry || !cvc || !billingAddress) {
       alert("Card details aur billing address bharo.");
       return;
     }
+    try {
+      setLoading(true);
 
-    // TODO: yahan se actual payment gateway (Safepay / Stripe) call hoga
-    // aur booking data backend ko POST hoga
-    alert("Booking confirmed! (Payment integration baad mein add hogi)");
-    navigate("/");
+      const bookingData = {
+        serviceId: vendor.id,             
+        vendorId: vendor.id,               
+        eventDate: bookingDetails.eventDate, 
+        totalAmount: totalPrice,           
+      };
+
+      const response = await API.post('/api/bookings/book', bookingData);
+
+      if (response.data.success) {
+        const userEmail = localStorage.getItem('userEmail');
+        await API.post('/api/notifications/send-email', {
+           to: userEmail,
+             subject: "EventEase - Booking Confirmed!",
+              text: `Assalam o Alaikum! Aapki booking ${vendor.name} ke sath confirm ho gayi. Event date: ${bookingDetails.eventDate}. Total amount: PKR ${totalPrice}`
+                });
+                alert("Booking confirmed! Email sent");
+               navigate("/");
+              }
+
+    } catch (err) {
+      console.error("Booking error:", err);
+      alert(err.response?.data?.message || "Booking failed! Please try again.");
+    } finally {
+      setLoading(false); 
+    }
   };
 
   return (
@@ -164,8 +190,8 @@ function Payment() {
           </div>
 
           {/* Pay button */}
-          <button type="submit" className="btn-pay">
-            Confirm & Pay PKR {totalDueToday.toLocaleString()}
+          <button type="submit" className="btn-pay" disabled={loading}>
+            {loading ? "Processing..." : `Confirm & Pay PKR ${totalDueToday.toLocaleString()}`}
           </button>
 
           <p className="secure-note"> Secured checkout · 256-bit SSL</p>

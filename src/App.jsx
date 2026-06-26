@@ -10,12 +10,15 @@ import Decorators from './Decorators';
 import Photographer from './Photographer';
 import Login from './login';
 import Signup from './Signup';
+import VendorRegister from './VendorRegistrationform';
+import VendorDashboard from './VendorDashboard';
 import About from './About';
 import VendorProfile from "./Photographer";
 import ChatPage from "./ChatPage";
 import BookingDetails from "./BookingDetails";
 import PackageSelection from "./PackageSelection";
 import Payment from "./Payment";
+import AdminDashboard from "./Admindashboard"
 
 
 function App() {
@@ -33,12 +36,15 @@ function App() {
         <Route path="/photographer" element={<Photographer />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/vendor-register" element={<VendorRegister />} />
+        <Route path="/vendor-dashboard" element={<VendorDashboard />} />
         <Route path="/about" element={<About />} />
         <Route path="/vendors/:id" element={<VendorProfile />} />
         <Route path="/chat/:vendorId" element={<ChatPage />} />
         <Route path="/details" element={<BookingDetails />} />
         <Route path="/package" element={<PackageSelection />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
         
       </Routes>
 

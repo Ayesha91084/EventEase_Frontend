@@ -1,45 +1,41 @@
+import { useState, useEffect } from "react";
 import "./Admindashboard.css";
+import API from "./api/axiosConfig";
 
 const navSections = [
   {
     label: "Overview",
     items: [
-      { icon: "◈", label: "Dashboard", active: true },
-      { icon: "◉", label: "Analytics" },
+      { label: "Dashboard", active: true },
+      { label: "Analytics" },
     ],
   },
   {
     label: "Management",
     items: [
-      { icon: "◎", label: "Vendor Approval", badge: "3", badgeType: "amber" },
-      { icon: "▦", label: "All Bookings", badge: "2", badgeType: "red" },
-      { icon: "◷", label: "Payouts" },
-      { icon: "⊛", label: "Users" },
+      { label: "Vendor Approval", badge: "3", badgeType: "amber" },
+      { label: "All Bookings", badge: "2", badgeType: "red" },
+      { label: "Payouts" },
+      { label: "Users" },
     ],
   },
   {
     label: "Monitoring",
     items: [
-      { icon: "◫", label: "Chat Logs", badge: "2", badgeType: "red" },
-      { icon: "◬", label: "Disputes" },
-      { icon: "◭", label: "Alerts" },
+      { label: "Chat Logs", badge: "2", badgeType: "red" },
+      { label: "Disputes" },
+      { label: "Alerts" },
     ],
   },
   {
     label: "Config",
     items: [
-      { icon: "⊕", label: "Commission" },
-      { icon: "◌", label: "Settings" },
+      { label: "Commission" },
+      { label: "Settings" },
     ],
   },
 ];
 
-const statCards = [
-  { color: "gold", icon: "💰", label: "Total Revenue", value: "Rs 4.2M", trend: "↑ 8.4%", trendLabel: "vs last month", trendUp: true },
-  { color: "green", icon: "👥", label: "Registered Users", value: "1,284", trend: "↑ 12", trendLabel: "new this week", trendUp: true },
-  { color: "blue", icon: "📦", label: "Total Bookings", value: "342", trend: "↑ 23", trendLabel: "this month", trendUp: true },
-  { color: "red", icon: "🏦", label: "Vendor Payouts", value: "Rs 3.8M", trend: "↑ 94%", trendLabel: "disbursed", trendUp: true },
-];
 
 const vendors = [
   { initials: "ZE", name: "Zara Events", type: "Catering — docs uploaded", status: "pending", colorClass: "va-a" },
@@ -64,9 +60,9 @@ const chatLogs = [
 ];
 
 const refunds = [
-  { icon: "✓", color: "green", title: "Vendor Cancels", desc: "100% full refund issued to customer automatically", iconClass: "ri-green" },
-  { icon: "⏱", color: "blue", title: "Customer > 48 hours", desc: "100% refund if cancelled before 48-hour window", iconClass: "ri-blue" },
-  { icon: "✕", color: "red", title: "Customer ≤ 48 hours", desc: "0% refund — within cutoff period, no refund", iconClass: "ri-red" },
+  { color: "green", title: "Vendor Cancels", desc: "100% full refund issued to customer automatically", iconClass: "ri-green" },
+  { color: "blue", title: "Customer > 48 hours", desc: "100% refund if cancelled before 48-hour window", iconClass: "ri-blue" },
+  { color: "red", title: "Customer ≤ 48 hours", desc: "0% refund — within cutoff period, no refund", iconClass: "ri-red" },
 ];
 
 const refundBars = [
@@ -89,8 +85,27 @@ const vendorBars = [
 ];
 
 export default function Admindashboard() {
-  const [activeNav, setActiveNav] = ("Dashboard");
+  const [activeNav, setActiveNav] = useState("Dashboard");
+  const [stats, setStats] = useState(null);
 
+  useEffect(() => {
+  const fetchStats = async () => {
+    try {
+      const response = await API.get('/api/admin/summary');
+      setStats(response.data.stats);
+    } catch (err) {
+      console.error("Stats error:", err);
+    }
+  };
+  fetchStats();
+}, []);
+  
+  const statCards = [
+  { color: "gold", label: "Total Users", value: stats ? stats.totalUsers : "...", trend: "↑ Live", trendLabel: "from database", trendUp: true },
+  { color: "green", label: "Total Vendors", value: stats ? stats.totalVendors : "...", trend: "↑ Live", trendLabel: "from database", trendUp: true },
+  { color: "blue", label: "Total Customers", value: stats ? stats.totalCustomers : "...", trend: "↑ Live", trendLabel: "from database", trendUp: true },
+  { color: "red", label: "Verified Vendors", value: stats ? stats.verifiedVendors : "...", trend: "↑ Live", trendLabel: "from database", trendUp: true },
+];
   return (
     <div className="shell">
       {/* Decorative blobs */}
@@ -271,7 +286,7 @@ export default function Admindashboard() {
                 </div>
               </div>
             ))}
-            <div className="privacy-note">🔒 Privacy protocol: Admin accesses logs only during dispute resolution</div>
+            <div className="privacy-note"> Privacy protocol: Admin accesses logs only during dispute resolution</div>
           </div>
 
           {/* Refund Policy */}

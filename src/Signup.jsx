@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import './Signup.css';
 import API from './api/axiosConfig';
-import{useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState('');
@@ -9,24 +10,41 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('customer');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // page reload hone se rokta hai
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
     try {
-      const response = await API.post('/signup', {
+      const response = await API.post('/api/auth/signup', {
         name,
         email,
         password,
         role
       });
 
-      localStorage.setItem('token', response.data.token);
-      alert('Account created successfully!');
-      navigate('/login'); // login page pe bhejo
+      const { token, user } = response.data;
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('userId', user.id);
+      localStorage.setItem('role', user.role);
+
+      if (user.role === 'vendor') {
+        navigate('/login'); 
+      } else {
+        navigate('/login'); 
+      }
+
     } catch (err) {
-      setError(err.response?.data?.msg || 'Signup failed');
+      console.log("FULL ERROR:", err);
+      console.log("ERROR RESPONSE:", err.response);
+      setError(err.response?.data?.message || 'Signup failed');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -35,34 +53,41 @@ const Signup = () => {
       <div className="signup-card">
         <h1>Create Account</h1>
         <p className="subtitle">Join EventEase to start managing your events.</p>
-         {error && <p style={{color: 'red'}}>{error}</p>}
 
-          <form className="signup-form" onSubmit={handleSubmit}>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
 
-
+        <form className="signup-form" onSubmit={handleSubmit}>
           <div className="input-group">
             <label>NAME</label>
-            <input type="Name" placeholder="Asma Noreen" value={name}
-            onChange={(e) => setName(e.target.value)}/>
+            <input
+              type="text"
+              placeholder="Asma Noreen"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </div>
 
           <div className="input-group">
             <label>EMAIL ADDRESS</label>
-            <input type="email" placeholder="example@email.com" value={email}
-              onChange={(e) => setEmail(e.target.value)} />
+            <input
+              type="email"
+              placeholder="example@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
 
           <div className="input-group">
             <label>PASSWORD</label>
             <div className="password-wrapper">
-              <input 
-                type={showPassword ? "text" : "password"} 
-                placeholder="Enter your password" 
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
                 value={password}
-                onChange={(e)=> setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               />
-              <span 
-                className="eye-icon" 
+              <span
+                className="eye-icon"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? "👁️‍🗨️" : "👁️"}
@@ -72,15 +97,20 @@ const Signup = () => {
 
           <div className="input-group">
             <label>I AM A...</label>
-            <select className="role-dropdown" value={role}
-            onChange={(e)=>setRole(e.target.value)}
+            <select
+              className="role-dropdown"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
             >
               <option value="customer">Customer</option>
               <option value="vendor">Vendor</option>
+              <option value="Admin">Admin</option>
             </select>
           </div>
 
-          <button type="submit" className="signup-btn">Create Account</button>
+          <button type="submit" className="signup-btn" disabled={loading}>
+            {loading ? 'Creating Account...' : 'Create Account'}
+          </button>
         </form>
 
         <p className="footer-text">

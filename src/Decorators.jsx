@@ -122,15 +122,12 @@ export default function VendorPage() {
 
             <div className="vendor-meta-grid">
               <div className="vendor-meta-item">
-                <span className="icon">📞</span>
                 <span>092 3XXX 4527</span>
               </div>
               <div className="vendor-meta-item">
-                <span className="icon">✉️</span>
                 <span>contact@floralfantasy.com</span>
               </div>
               <div className="vendor-meta-item">
-                <span className="icon">📍</span>
                 <span>Gulberg III, Lahore, Pakistan</span>
               </div>
             </div>

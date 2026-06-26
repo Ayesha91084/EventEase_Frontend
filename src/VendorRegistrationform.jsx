@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './VendorRegistrationform.css';
-import axiosInstance from "./api/axiosConfig"; // apna sahi path daal lena
+import axiosInstance from "./api/axiosConfig";
 
 const VendorRegister = () => {
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ const VendorRegister = () => {
       return;
     }
 
-    const userId = localStorage.getItem("userId"); // login ke waqt save kiya hua tha
+    const userId = localStorage.getItem("userId");
     if (!userId) {
       setError("Please login first.");
       return;
@@ -57,7 +57,7 @@ const VendorRegister = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setSuccess("Registration submitted! Waiting for approval.");
-      setTimeout(() => navigate("/"), 2000);
+      setTimeout(() => navigate("/vendor-dashboard"), 2000);
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong.");
     } finally {
@@ -69,19 +69,18 @@ const VendorRegister = () => {
     <div className="vendor-register-container">
       <div className="vendor-register-card">
         <h2>Become a Vendor on EventEase</h2>
-        <p>Apna business register karo aur customers tak pohncho.</p>
 
         {error && <p className="error-msg">{error}</p>}
         {success && <p className="success-msg">{success}</p>}
 
         <form onSubmit={handleSubmit}>
-          <label>Business Name *</label>
+          <label>Business Name:</label>
           <input type="text" name="businessName" value={formData.businessName} onChange={handleChange} />
 
-          <label>City *</label>
+          <label>City:</label>
           <input type="text" name="city" value={formData.city} onChange={handleChange} />
 
-          <label>Address *</label>
+          <label>Address:</label>
           <input type="text" name="address" value={formData.address} onChange={handleChange} />
 
           <label>Description</label>

@@ -44,7 +44,7 @@ export default function Venuepage() {
       if (selectedEvents.length > 0 && !selectedEvents.some((e) => v.eventTypes.includes(e)))
         return false;
       if (v.price < minPrice || v.price > maxPrice) return false;
-      if (v.capacity < minCapacity) return false;
+      if (minCapacity > 0 && (v.capacity || 0) < minCapacity) return false;
       return true;
     })
     .sort((a, b) => {
@@ -241,7 +241,7 @@ export default function Venuepage() {
               </div>
             ) : (
               filteredVenues.map((venue) => (
-                <div key={venue.id} className="vlp-card">
+                <div key={venue.UserId} className="vlp-card">
                   <div className="vlp-card-image">
                     <img src={venue.image} alt={venue.name} />
                     {venue.topPick && (
@@ -273,7 +273,7 @@ export default function Venuepage() {
                         <span className="vlp-price-label">Starting from</span>
                         <span className="vlp-price-value">PKR {venue.price.toLocaleString()}/head</span>
                       </div>
-                      <button className="vlp-details-btn" onClick={() => navigate(`/vendors/${venue.id}`)} > View Profile </button>
+                      <button className="vlp-details-btn" onClick={() => navigate(`/vendors/${venue.UserId}`)} > View Profile </button>
                     </div>
                   </div>
                 </div>
