@@ -260,3 +260,12 @@ body { font-family: 'Jost', sans-serif; background: #f9f7f4; color: #1a1209;marg
   75% { transform: scale(1.08) translate(-5px, 5px); }
   100% { transform: scale(1.15) translate(8px, -5px); }
 }
+.ee-hero-subtitle {
+  font-family: 'Jost', sans-serif;
+  font-size: 16px;
+  color: #ffffff;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+  margin-top: 16px;
+  letter-spacing: 0.3px;
+  animation: fadeUp 0.9s 0.1s ease both;
+}
