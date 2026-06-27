@@ -19,6 +19,7 @@ import BookingDetails from "./BookingDetails";
 import PackageSelection from "./PackageSelection";
 import Payment from "./Payment";
 import AdminDashboard from "./Admindashboard"
+import VendorsList from "./VendorsList"
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
         <Route path="/package" element={<PackageSelection />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/Vendorslist" element={<VendorsList />} />
         
       </Routes>
 
