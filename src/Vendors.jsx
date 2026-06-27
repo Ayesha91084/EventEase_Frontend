@@ -49,10 +49,10 @@ const events = [
 ];
 
 const categories = [
-  { label: "Venues & Halls", Icon: VenueIcon },
-  { label: "Marquees",       Icon: MarqueeIcon },
-  { label: "Photographers",  Icon: CameraIcon },
-  { label: "Decorators",     Icon: DecoratorIcon },
+  { label: "Venues & Halls", Icon: VenueIcon, path: "/vendors" },
+  { label: "Marquees", Icon: MarqueeIcon, path: "/vendors" },
+  { label: "Photographers", Icon: CameraIcon, path: "/photographer" },
+  { label: "Decorators", Icon: DecoratorIcon, path: "/decorators" },
 ];
 
 // ===== COMPONENT =====
@@ -112,15 +112,15 @@ export default function Vendors() {
       <section className="categories-section">
         <h2>Find Services by Category</h2>
         <div className="categories-grid">
-          {categories.map(({ label, Icon }) => (
-            <div className="category-card" key={label}>
-              <div className="category-icon">
-                <Icon />
-              </div>
-              <p>{label}</p>
+          {categories.map(({ label, Icon, path }) => (
+         <div className="category-card" key={label} onClick={() => navigate(path)} style={{cursor: "pointer"}}>
+          <div className="category-icon">
+         <Icon />
+         </div>
+         <p>{label}</p>
+                 </div>
+                 ))}
             </div>
-          ))}
-        </div>
       </section>
     </div>
   );

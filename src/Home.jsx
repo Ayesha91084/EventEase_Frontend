@@ -169,7 +169,7 @@ export default function Home() {
                 <div className="ee-tags">
                   {v.tags.map(t => <span className="ee-tag" key={t}>{t}</span>)}
                 </div>
-                <button className="ee-book-btn">Book Now</button>
+                <button className="ee-book-btn"> View Details </button>
               </div>
             </div>
           ))}

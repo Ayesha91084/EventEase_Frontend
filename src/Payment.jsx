@@ -45,8 +45,10 @@ function Payment() {
     }
     try {
       setLoading(true);
+      const userId = localStorage.getItem("userId");
 
       const bookingData = {
+         userId: userId,
         serviceId: vendor.id,             
         vendorId: vendor.id,               
         eventDate: bookingDetails.eventDate, 
