@@ -231,3 +231,41 @@ body { font-family: 'Jost', sans-serif; background: #f9f7f4; color: #1a1209;marg
   .ee-service-label { font-size: 11px; }
   .ee-footer-grid { grid-template-columns: 1fr; }
 }
+
+.ee-hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  filter: brightness(0.55);
+}
+
+.ee-hero-slide.active {
+  opacity: 1;
+  z-index: 1;
+  animation: kenBurns 6s ease-in-out forwards;
+}
+
+.ee-hero-slide.prev {
+  opacity: 0;
+  z-index: 0;
+}
+
+@keyframes kenBurns {
+  0% { transform: scale(1) translate(0px, 0px); }
+  25% { transform: scale(1.08) translate(-10px, -5px); }
+  50% { transform: scale(1.12) translate(5px, -8px); }
+  75% { transform: scale(1.08) translate(-5px, 5px); }
+  100% { transform: scale(1.15) translate(8px, -5px); }
+}
+.ee-hero-subtitle {
+  font-family: 'Jost', sans-serif;
+  font-size: 16px;
+  color: #ffffff;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+  margin-top: 16px;
+  letter-spacing: 0.3px;
+  animation: fadeUp 0.9s 0.1s ease both;
+}

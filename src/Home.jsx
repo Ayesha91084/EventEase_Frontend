@@ -1,9 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import "./Home.css";
 
-
+const heroImages = [
+  "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1600&q=80",
+  "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?w=1600&q=80",
+  "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80",
+  "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=1600&q=80",
+  "https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=1600&q=80",
+];
 const countries = ["Pakistan", "United Kingdom", "United States", "UAE", "Saudi Arabia", "India", "Canada", "Australia"];
 const citiesByCountry = {
   Pakistan: ["Lahore", "Karachi", "Islamabad", "Faisalabad", "Rawalpindi", "Multan"],
@@ -62,7 +68,14 @@ export default function Home() {
   const navigate = useNavigate();
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
+const [currentSlide, setCurrentSlide] = useState(0);
 
+useEffect(() => {
+  const timer = setInterval(() => {
+    setCurrentSlide(prev => (prev + 1) % heroImages.length);
+  }, 4000);
+  return () => clearInterval(timer);
+}, []);
   const cities = country ? citiesByCountry[country] || [] : [];
 
   return (
@@ -81,46 +94,57 @@ export default function Home() {
           <button className="ee-btn-primary" onClick={() => navigate('/signup')}>Sign Up</button>
         </div>
       </nav>
-
-      {/* HERO */}
       <section className="ee-hero">
-        <div className="ee-hero-bg" />
-        <div className="ee-hero-overlay" />
-        <div className="ee-hero-content">
-          <h1>Your Dream Event,<br /><em>Just A Click Away</em></h1>
-
-          {/* SEARCH BAR */}
-          <div className="ee-search-bar">
-            <select
-              className="ee-search-select"
-              value={country}
-              onChange={e => { setCountry(e.target.value); setCity(""); }}
-            >
-              <option value="" disabled hidden>  Select Country</option>
-              {countries.map(c => <option key={c} value={c}>{c}</option>)}
-            </select>
-
-            <div className="ee-search-divider" />
-
-            <select
-              className="ee-search-select"
-              value={city}
-              onChange={e => setCity(e.target.value)}
-              disabled={!country}
-            >
-              <option value="" disabled hidden> {country ? "Select City" : "Select Country First"}</option>
-              {cities.map(c => <option key={c} value={c}>{c}</option>)}
-            </select>
-
-            <button className="ee-search-btn">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-              </svg>
-              Search
-            </button>
-          </div>
-        </div>
-      </section>
+  <div className="ee-hero-slider">
+    {heroImages.map((img, i) => (
+      <div
+        key={i}
+        className={`ee-hero-slide ${i === currentSlide ? "active" : i === (currentSlide - 1 + heroImages.length) % heroImages.length ? "prev" : ""}`}
+        style={{ backgroundImage: `url(${img})` }}
+      />
+    ))}
+  </div>
+  <div className="ee-hero-overlay" />
+  <div className="ee-hero-content">
+    <h1>Your Dream Event,<br /><em>Just A Click Away</em></h1>
+    <p className="ee-hero-subtitle">Discover top vendors, venues & services for your perfect event</p>
+    <div className="ee-search-bar">
+      <select
+        className="ee-search-select"
+        value={country}
+        onChange={e => { setCountry(e.target.value); setCity(""); }}
+      >
+        <option value="" disabled hidden>Select Country</option>
+        {countries.map(c => <option key={c} value={c}>{c}</option>)}
+      </select>
+      <div className="ee-search-divider" />
+      <select
+        className="ee-search-select"
+        value={city}
+        onChange={e => setCity(e.target.value)}
+        disabled={!country}
+      >
+        <option value="" disabled hidden>{country ? "Select City" : "Select City"}</option>
+        {cities.map(c => <option key={c} value={c}>{c}</option>)}
+      </select>
+      <button className="ee-search-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        Search
+      </button>
+    </div>
+    <div className="ee-hero-dots">
+      {heroImages.map((_, i) => (
+        <button
+          key={i}
+          className={`ee-hero-dot ${i === currentSlide ? "active" : ""}`}
+          onClick={() => setCurrentSlide(i)}
+        />
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* SERVICES */}
       <section className="ee-section">
