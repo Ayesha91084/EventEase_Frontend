@@ -53,7 +53,7 @@ body { font-family: 'Jost', sans-serif; background: #f9f7f4; color: #1a1209;marg
 
 .ee-search-bar {
   margin-top: 40px;
-  display: flex; gap: 0; border-radius: 12px; overflow: hidden;
+  display: flex; gap: 0; border-radius: 50px; overflow: hidden;
   background: rgba(255,255,255,0.97);
   box-shadow: 0 20px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(180,148,90,0.3);
   animation: fadeUp 0.9s 0.15s ease both;
@@ -75,6 +75,7 @@ body { font-family: 'Jost', sans-serif; background: #f9f7f4; color: #1a1209;marg
   font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 600;
   color: #fff; letter-spacing: 0.5px; transition: background 0.2s;
   display: flex; align-items: center; gap: 8px;
+  border-radius: 0 50px 50px 0;
 }
 .ee-search-btn:hover { background: #c9a96e; }
 .ee-search-btn svg { width: 18px; height: 18px; }
