@@ -20,7 +20,8 @@ body { font-family: 'Jost', sans-serif; background: #f9f7f4; color: #1a1209;marg
 .ee-nav-links a { font-size: 14px; font-weight: 500; color: #555; text-decoration: none; letter-spacing: 0.3px; transition: color 0.2s; }
 .ee-nav-links a:hover, .ee-nav-links a.active { color: #1a1209; }
 .ee-nav-actions { display: flex; gap: 12px; align-items: center; }
-.ee-btn-ghost { background: none; border: none; font-family: 'Jost', sans-serif; font-size: 14px; color: #555; cursor: pointer; padding: 8px 16px; }
+.ee-btn-ghost { background: none; border: 1.5px solid #b4945a; color: #b4945a; font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 600; padding: 8px 18px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+.ee-btn-ghost:hover { background: #b4945a; color: #fff; }
 .ee-btn-primary { background: #1a3052; color: #fff; border: none; font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 600; padding: 10px 22px; border-radius: 6px; cursor: pointer; letter-spacing: 0.3px; transition: background 0.2s; }
 .ee-btn-primary:hover { background: #254470; }
 
