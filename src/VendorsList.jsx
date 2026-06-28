@@ -1,32 +1,32 @@
 import { useNavigate } from "react-router-dom";
 import { dummyVenues } from "./Components/VendorsData";
-import "./Decorators.css";
+import "./Venuepage.css";
 
-export default function Decorators() {
+export default function PhotographerList() {
   const navigate = useNavigate();
 
-  const decorators = dummyVenues.filter(
-    (v) => v.type.toLowerCase() === "decorators"
+  const photographers = dummyVenues.filter(
+    (v) => v.type.toLowerCase() === "photographers"
   );
 
   return (
     <div className="vlp-page">
       <div className="vlp-header">
         <div className="vlp-header-content">
-          <h1>Find Your Perfect Decorator</h1>
-          <p>{decorators.length} decorators available</p>
+          <h1>Find Your Perfect Photographer</h1>
+          <p>{photographers.length} photographers available</p>
         </div>
       </div>
 
       <div className="vlp-body">
         <main className="vlp-results">
           <div className="vlp-cards">
-            {decorators.length === 0 ? (
+            {photographers.length === 0 ? (
               <div className="vlp-no-results">
-                <p>No decorators found!</p>
+                <p>No photographers found!</p>
               </div>
             ) : (
-              decorators.map((vendor) => (
+              photographers.map((vendor) => (
                 <div key={vendor.UserId} className="vlp-card">
                   <div className="vlp-card-image">
                     <img src={vendor.image} alt={vendor.name} />
@@ -41,7 +41,9 @@ export default function Decorators() {
                       <div className="vlp-rating">
                         <span className="vlp-star">★</span>
                         <span>{vendor.rating}</span>
-                        <span className="vlp-reviews">({vendor.reviews} reviews)</span>
+                        <span className="vlp-reviews">
+                          ({vendor.reviews} reviews)
+                        </span>
                       </div>
                     </div>
                     <p className="vlp-location">📍 {vendor.location}</p>

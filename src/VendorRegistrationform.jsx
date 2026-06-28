@@ -42,7 +42,7 @@ const VendorRegister = () => {
     }
 
     const data = new FormData();
-    data.append("userId", userId);
+    data.append("user", userId);
     data.append("businessName", formData.businessName);
     data.append("description", formData.description);
     data.append(

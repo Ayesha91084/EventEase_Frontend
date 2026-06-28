@@ -289,6 +289,7 @@ export default function VendorProfile() {
   const { setVendor } = useBooking();
   const vendor = dummyVenues.find((v) => v.UserId === Number(id));
   console.log("Vendor found:", vendor);
+  
 
   if (!vendor) return <p>Vendor not found</p>;
 
